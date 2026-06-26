@@ -1,0 +1,15 @@
+diff --git a/lib/libmedia_codec/CMakePresets.json b/lib/libmedia_codec/CMakePresets.json
+index 6d9b993..913804b 100644
+--- a/lib/libmedia_codec/CMakePresets.json
++++ b/lib/libmedia_codec/CMakePresets.json
+@@ -4,8 +4,7 @@
+     {
+       "name": "default",
+       "cacheVariables": {
+-        "CMAKE_TOOLCHAIN_FILE": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake"
+       }
+     }
+   ]
+-}
+\ No newline at end of file
++}

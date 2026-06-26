@@ -1,0 +1,72 @@
+context:
+  version: 0.1.2.0
+  libmedia_version: 0.0.1
+  build_number: '0'
+
+source:
+  git: https://github.com/jeguzzi/RoboMaster-SDK.git
+  branch: master
+  patches:
+    - patches/01-remove-vcpkg-cmake.patch
+
+build:
+  number: ${{ build_number }}
+
+outputs:
+  - package:
+      name: robomaster-sdk
+      version: ${{ version }}
+    build:
+      script: ${{ PYTHON }} -m pip install .
+    requirements:
+      build:
+      - pip
+      host:
+      - python
+      - pip
+      - setuptools
+      run:
+      - python
+      - numpy
+      - netaddr
+      - netifaces
+      - py-opencv
+
+  - package:
+      name: rm_libmedia_codec
+      version: ${{ libmedia_version }}
+    build:
+      script:
+        - |
+          cd lib/libmedia_codec
+          ${{ PYTHON }} -m pip install .
+    requirements:
+      build:
+      - ${{ compiler('c') }}
+      - ${{ compiler('cxx') }}
+      - pip
+      - ffmpeg
+      - libopus
+      - make
+      - cmake
+      - pkg-config
+      - scikit-build-core
+      host:
+      - python
+      - pip
+      - ffmpeg
+      - libopus
+      - make
+      - cmake
+      - pkg-config
+      - setuptools
+      - scikit-build-core
+      run:
+      - python
+      - ffmpeg
+      - libopus
+
+about:
+  homepage: https://github.com/jeguzzi/RoboMaster-SDK/tree/master
+  summary: "RoboMaster Education Robot SDK"
+  description: ''
