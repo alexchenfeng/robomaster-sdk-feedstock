@@ -1,0 +1,20 @@
+diff --git a/lib/libmedia_codec/src/media_codec.h b/lib/libmedia_codec/src/media_codec.h
+index 8a3b0e0..61677ed 100644
+--- a/lib/libmedia_codec/src/media_codec.h
++++ b/lib/libmedia_codec/src/media_codec.h
+@@ -301,13 +301,14 @@ public:
+         delete [] int16_raw_;
+     }
+ 
+-    py::bytes decode(const py::str & input) {
++    py::bytes decode(const py::bytes & input) {
+         ssize_t len = PYBIND11_BYTES_SIZE(input.ptr());
+         const unsigned char* data_in = (const unsigned char*)(PYBIND11_BYTES_AS_STRING(input.ptr()));
+         try {
+             py::gil_scoped_release decoder_release;
+             int frame_size = opus_decode(decoder_, data_in, len, int16_raw_, FRAME_SIZE, 0);
+             if (frame_size < 0) {
++	 	py::gil_scoped_acquire decoder_acquire;
+                 return py::bytes();
+             }
+ 
